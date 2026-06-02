@@ -228,7 +228,3 @@ Server errors (500+) never leak the error message — returns `"Internal server 
 - **No search/filter** — future enhancement for product catalog
 - **No rate limiting** — future enhancement for auth routes
 - **Admin registration** — `isAdmin` flag must be set manually in MongoDB
-
-## License
-
-MIT
