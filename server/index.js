@@ -14,7 +14,10 @@ const app = express();
 
 app.use(compression());
 app.use(helmet());
-app.use(cors({ origin: process.env.CLIENT_ORIGIN?.split(",") ?? "*", credentials: true }));
+app.use(cors({
+  origin: process.env.CLIENT_ORIGIN?.split(",") ?? false,
+  credentials: true
+}));
 app.use(express.json({ limit: "10mb" }));
 
 app.get("/api/health", (_req, res) => res.json({ ok: true }));
