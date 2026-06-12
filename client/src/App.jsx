@@ -1,4 +1,5 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "./context/AuthContext.jsx";
 import { CartProvider } from "./context/CartContext.jsx";
 import { WishlistProvider } from "./context/WishlistContext.jsx";
@@ -6,6 +7,7 @@ import { ThemeProvider } from "./context/ThemeContext.jsx";
 import { LoadingProvider } from "./context/LoadingContext.jsx";
 import Navbar from "./components/Navbar.jsx";
 import LoadingBanner from "./components/LoadingBanner.jsx";
+import Footer from "./components/Footer.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Products from "./pages/Products.jsx";
@@ -31,13 +33,16 @@ function AdminOnly({ children }) {
 }
 
 export default function App() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return (
     <ThemeProvider>
       <CartProvider>
         <WishlistProvider>
-          <div className="min-h-screen">
+          <div className="min-h-screen flex flex-col overflow-x-hidden">
           <LoadingBanner />
           <Navbar />
+          <main className="flex-1">
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -49,6 +54,8 @@ export default function App() {
             <Route path="/admin" element={<AdminOnly><AdminDashboard /></AdminOnly>} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
+          </main>
+          <Footer />
         </div>
         </WishlistProvider>
       </CartProvider>
